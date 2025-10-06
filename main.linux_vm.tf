@@ -164,6 +164,7 @@ resource "azurerm_linux_virtual_machine" "this" {
       admin_ssh_key,
       source_image_id,
       identity,
+      os_disk[0].name,
     ]
   }
 }
