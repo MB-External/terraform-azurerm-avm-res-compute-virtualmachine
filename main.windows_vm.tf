@@ -177,6 +177,7 @@ resource "azurerm_windows_virtual_machine" "this" {
       admin_username,
       source_image_id,
       identity,
+      os_disk[0].name,
     ]
   }
 }
