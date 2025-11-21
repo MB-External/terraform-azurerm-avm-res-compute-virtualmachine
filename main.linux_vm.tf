@@ -156,6 +156,16 @@ resource "azurerm_linux_virtual_machine" "this" {
     azurerm_network_interface_application_gateway_backend_address_pool_association.this,
     azurerm_network_interface_nat_rule_association.this
   ]
+
+  lifecycle {
+    ignore_changes = [
+      admin_username,
+      admin_password,
+      admin_ssh_key,
+      source_image_reference,
+      source_image_id,
+    ]
+  }
 }
 
 moved {
