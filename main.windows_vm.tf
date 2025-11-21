@@ -178,6 +178,7 @@ resource "azurerm_windows_virtual_machine" "this" {
       admin_password,
       source_image_reference,
       source_image_id,
+      os_disk.name,
     ]
   }
 }
