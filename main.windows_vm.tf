@@ -21,7 +21,7 @@ resource "azurerm_windows_virtual_machine" "this" {
   dedicated_host_id                                      = var.dedicated_host_resource_id
   disk_controller_type                                   = var.disk_controller_type
   edge_zone                                              = var.edge_zone
-  enable_automatic_updates                               = var.enable_automatic_updates
+  automatic_updates_enabled                              = var.enable_automatic_updates
   encryption_at_host_enabled                             = var.encryption_at_host_enabled
   eviction_policy                                        = var.eviction_policy
   extensions_time_budget                                 = var.extensions_time_budget
@@ -173,7 +173,6 @@ resource "azurerm_windows_virtual_machine" "this" {
   lifecycle {
     ignore_changes = [
       winrm_listener,                    # Once the certificate got rotated, it will trigger a destroy/recreate of the VM.
-      vm_agent_platform_updates_enabled, # Added property to ignore_changes as it continues to detect change in state.
       admin_username,
       admin_password,
       source_image_reference,
@@ -209,5 +208,3 @@ resource "azurerm_management_lock" "this_windows_virtualmachine" {
     module.run_command_2
   ]
 }
-
-

@@ -6,6 +6,13 @@
 
 This is the virtual machine resource module for the Azure Verified Modules library.  This module deploys a Windows and/or Linux virtual machine along with common associated resources.  It leverages the AzureRM provider and sets a number of initial defaults to minimize the overall inputs for simple configurations.
 
+This fork accepts AzureRM 4.81 through v5. Existing resource addresses and VM
+inputs are unchanged. The Windows `enable_automatic_updates` input now maps to
+the provider's `automatic_updates_enabled` argument; diagnostic metric
+categories use `enabled_metric`. Upgrade the provider lock file and review a
+plan against existing state before applying. Native ASR disk additions in a
+calling module require AzureRM 5.3 or later.
+
 <!-- markdownlint-disable MD033 -->
 ## Requirements
 
@@ -15,7 +22,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.4)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 3.116, < 5.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 4.81, < 6.0)
 
 - <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
 
