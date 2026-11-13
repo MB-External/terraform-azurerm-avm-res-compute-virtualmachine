@@ -13,6 +13,25 @@ categories use `enabled_metric`. Upgrade the provider lock file and review a
 plan against existing state before applying. Native ASR disk additions in a
 calling module require AzureRM 5.3 or later.
 
+Validate the v4-to-v5 transition without deploying resources:
+
+```powershell
+terraform init -backend=false
+pwsh -NoProfile -File tests\Test-ProviderUpgrade.ps1 `
+  -SubscriptionId '<subscription-id>' -TenantId '<tenant-id>'
+```
+
+The suite requires authenticated AzureRM credentials and a selected Azure CLI
+subscription when using CLI authentication. It plans with the real v4.81/v5.13
+providers and synthetic Windows/Linux VM, NIC, data-disk, attachment and
+diagnostic state. It rejects creation, replacement, deletion and property
+changes before and after the upgrade, except an in-place diagnostic block
+migration that must preserve all metric categories. Identical-value SDK updates are reported
+explicitly and are not a live no-op guarantee;
+it never applies, imports or accesses a live backend. Provider-level discovery
+can make read-only Azure requests. Supply `-TerraformPath` if Terraform is not
+on PATH. Also review a plan against each real workload's state before rollout.
+
 <!-- markdownlint-disable MD033 -->
 ## Requirements
 
